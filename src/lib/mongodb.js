@@ -5,13 +5,13 @@ const MONGODB_DB = process.env.MONGODB_DB;
 
 if (!MONGODB_URI) {
   throw new Error(
-    "Please define the MONGODB_URI environment variable inside .env.local"
+    "coloque a url do mongoDB no arquivo .env.local"
   );
 }
 
 if (!MONGODB_DB) {
   throw new Error(
-    "Please define the MONGODB_DB environment variable inside .env.local"
+    "coloque o nome do banco de dados no arquivo .env.local"
   );
 }
 
@@ -32,10 +32,8 @@ export async function connectToDatabase() {
   }
 
   if (!cached.promise) {
-    const opts = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    };
+    // Deixe o objeto vazio. Sem as propriedades antigas!
+    const opts = {}; 
 
     cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {
       return {
