@@ -3,7 +3,9 @@ import { clientController } from '../../../controllers/clientController';
 
 // Trata o recebimento do formulário (POST)
 export async function POST(request) {
-  try {
+    
+    
+    try {
     const data = await request.json();
     const result = await clientController.createClient(data);
     

@@ -1,5 +1,5 @@
 import { connectToDatabase } from '../lib/mongodb';
-import { validateClient } from '../models/Client';
+import { validateClient } from '../models/client';
 
 export const clientController = {
   // FUNÇÃO 1: Cadastrar um novo cliente
