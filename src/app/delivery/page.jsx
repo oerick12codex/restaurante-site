@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { formatPrice } from '@/utils/formatPrice';
+import { formatPrice } from '../../utils/formatPrice';
 
 export default function DeliveryPage() {
   // Simulando itens trazidos do banco na sacola de compras
