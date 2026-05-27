@@ -9,7 +9,7 @@ export default function HomePage() {
         {/* Camada de fundo sutil */}
         <div className="absolute inset-0 bg-black opacity-40 pointer-events-none"></div>
         
-        <div className="relative z-10 max-w-4xl mx-auto">
+        <div className="relative z-10 max-w-3xl mx-auto">
           <span className="text-amber-500 font-bold uppercase tracking-widest text-sm bg-amber-500/10 px-4 py-1.5 rounded-full">
             Alta Performance Gourmet
           </span>
@@ -17,30 +17,30 @@ export default function HomePage() {
             Sabores Únicos Integrados na Nuvem
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-zinc-300 max-w-2xl mx-auto">
-            Descubra uma experiência gastronomica impecável com pratos preparados na hora e entrega ultra rápida.
+            Descubra uma experiência gastronômica impecável com pratos preparados na hora e ingredientes premium.
           </p>
           
-          {/* 🔥 Botões de Chamada para Ação (CTAs) Atualizados */}
+          {/* 🔥 Botões de Chamada para Ação (CTAs) - Agora com o Delivery incluso */}
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link 
               href="/menu" 
-              className="px-6 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-xl border border-zinc-700 transition-all transform hover:-translate-y-0.5 shadow-md"
+              className="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-xl border border-zinc-700 transition-all transform hover:-translate-y-0.5"
             >
               📖 Ver Cardápio
             </Link>
-            
+
             <Link 
               href="/delivery" 
               className="px-8 py-4 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5"
             >
               🚀 Pedir Delivery
             </Link>
-
+            
             <Link 
               href="/cadastro" 
-              className="px-6 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/10 backdrop-blur-sm transition-all transform hover:-translate-y-0.5"
+              className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 backdrop-blur-sm transition-all transform hover:-translate-y-0.5"
             >
-              🔑 Criar Conta
+              🔑 Criar Conta Cliente
             </Link>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function HomePage() {
               <span className="text-xs text-zinc-400">Estacionamento gratuito no local</span>
             </p>
           </div>
-          
+
         </div>
       </section>
 
