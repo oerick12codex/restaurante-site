@@ -1,16 +1,22 @@
 import { connectToDatabase } from '../lib/mongodb';
+import { validateOrder } from '../models/Order'; // 1. Importa o "guarda" (Model do Pedido)
 
 export const orderController = {
-  // FUNÇÃO: Salvar um novo pedido vindo do Delivery
+  // FUNÇÃO: Criar e salvar um novo pedido de delivery blindado
   async createOrder(orderData) {
-    // Validação de segurança antes de chamar o banco
-    if (!orderData.client || !orderData.items || orderData.items.length === 0 || !orderData.total) {
-      throw new Error('Dados incompletos. Carrinho ou dados do cliente vazios.');
+    
+    // 2. Passa os dados pelo pente fino do Model antes de chamar o banco
+    const validation = validateOrder(orderData);
+    
+    if (!validation.isValid) {
+      // Se o carrinho estiver vazio ou faltar endereço, para aqui e joga o erro para a API
+      throw new Error(validation.errors.join(' '));
     }
 
+    // 3. Se os dados passaram no teste do Model, abre a conexão com o MongoDB
     const { db } = await connectToDatabase();
 
-    // Estrutura o documento final exatamente como vai para o MongoDB
+    // Organiza a estrutura exata que vai ser gravada na coleção
     const finalOrder = {
       client: {
         name: orderData.client.name.trim(),
@@ -19,20 +25,20 @@ export const orderController = {
       },
       items: orderData.items.map(item => ({
         name: item.name,
-        price: item.price,
-        quantity: item.quantity
+        price: Number(item.price),
+        quantity: Number(item.quantity)
       })),
       total: Number(orderData.total),
-      status: 'Pendente', // Status para o painel do restaurante
+      status: 'Pendente', // Status inicial para o painel de controle do restaurante
       createdAt: new Date()
     };
 
-    // Insere na coleção 'orders'
+    // Insere com segurança na coleção 'orders'
     const result = await db.collection('orders').insertOne(finalOrder);
     return result;
   },
 
-  // FUNÇÃO EXTRA: Listar pedidos (Útil para uma futura tela de Admin/Cozinha)
+  // FUNÇÃO EXTRA: Listar todos os pedidos (Para a cozinha ou painel do Admin)
   async getOrders() {
     const { db } = await connectToDatabase();
     return await db.collection('orders').find({}).sort({ createdAt: -1 }).toArray();
