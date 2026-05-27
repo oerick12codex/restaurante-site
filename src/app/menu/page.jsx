@@ -1,7 +1,7 @@
 'use client'; // Avisa ao Next.js que esta página usa interatividade do React (hooks)
 
 import { useEffect, useState } from 'react';
-import FoodCard from '../../components/FoodCard'; // Importa o componente visual de cada prato
+import FoodCard from '../../components/FoodCard.jsx'; // Importa o componente visual de cada prato
 
 export default function CardapioPage() {
   // 1. ESTADOS DA PÁGINA (Variáveis de controle)

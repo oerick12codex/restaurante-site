@@ -1,5 +1,5 @@
 import { connectToDatabase } from '../lib/mongodb';
-import { validateMenuItem } from '../models/menu';
+import { validateMenuItem } from '../models/Menu';
 
 export const menuController = {
   // FUNÇÃO 1: Buscar todos os pratos do cardápio

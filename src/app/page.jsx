@@ -6,7 +6,6 @@ export default function HomePage() {
       
       {/* 1. SEÇÃO HERO (Banner Principal) */}
       <section className="relative bg-zinc-900 text-white py-24 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center flex-grow">
-        {/* Camada de fundo sutil */}
         <div className="absolute inset-0 bg-black opacity-40 pointer-events-none"></div>
         
         <div className="relative z-10 max-w-3xl mx-auto">
@@ -20,7 +19,7 @@ export default function HomePage() {
             Descubra uma experiência gastronômica impecável com pratos preparados na hora e ingredientes premium.
           </p>
           
-          {/* 🔥 Botões de Chamada para Ação (CTAs) - Agora com o Delivery incluso */}
+          {/* 🔥 Botões de Chamada para Ação (CTAs) - Agora com Delivery e Reserva inclusos */}
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link 
               href="/menu" 
@@ -35,6 +34,13 @@ export default function HomePage() {
             >
               🚀 Pedir Delivery
             </Link>
+
+            <Link 
+              href="/reservas" 
+              className="px-8 py-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5"
+            >
+              🪑 Reservar Mesa
+            </Link>
             
             <Link 
               href="/cadastro" 
@@ -46,7 +52,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. SEÇÃO DE INFORMAÇÕES (Endereço e Horários) */}
+      {/* 2. SEÇÃO DE RESERVAS (Chamada dedicada para agendamento) */}
+      <section className="bg-zinc-100 py-16 px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-zinc-200">
+          <div className="text-amber-500 text-4xl mb-3">🍷</div>
+          <h2 className="text-2xl font-bold text-zinc-900 mb-2">Planeje seu Almoço ou Jantar</h2>
+          <p className="text-zinc-600 text-sm mb-6">
+            Evite filas e garanta uma mesa exclusiva para você, sua família ou amigos. Nosso sistema de agendamento garante sua mesa em poucos cliques.
+          </p>
+          <Link
+            href="/reservas"
+            className="inline-block bg-zinc-950 hover:bg-zinc-850 text-white font-semibold py-3 px-6 rounded-xl transition-all"
+          >
+            Agendar uma Mesa agora
+          </Link>
+        </div>
+      </section>
+
+      {/* 3. SEÇÃO DE INFORMAÇÕES (Endereço e Horários) */}
       <section className="bg-white border-t border-zinc-100 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
           

@@ -4,7 +4,10 @@ import { useState } from 'react';
 import { formatPrice } from '../../utils/formatPrice';
 
 export default function DeliveryPage() {
-  // Simulando itens trazidos do banco na sacola de compras
+  const [clientData, setClientData] = useState({ name: '', phone: '', address: '' });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ type: '', text: '' });
+  
   const [cartItems, setCartItems] = useState([
     {
       _id: "6a14ec8b99c152c488f67a9d",
@@ -15,16 +18,10 @@ export default function DeliveryPage() {
     }
   ]);
 
-  const [clientData, setClientData] = useState({ name: '', phone: '', address: '' });
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ type: '', text: '' });
-
-  // Monitora as entradas do formulário de entrega
   const handleInputChange = (e) => {
     setClientData({ ...clientData, [e.target.name]: e.target.value });
   };
 
-  // Funções para alterar a quantidade do item na sacola
   const updateQuantity = (id, amount) => {
     const updated = cartItems.map(item => {
       if (item._id === id) {
@@ -36,16 +33,15 @@ export default function DeliveryPage() {
     setCartItems(updated);
   };
 
-  // Calcula o valor total dinamicamente
   const totalValue = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
-  // Envia o pedido para o nosso backend
   const handleCheckout = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage({ type: '', text: '' });
 
     try {
+      // Consumindo a sua API correta de Pedidos
       const response = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -60,11 +56,14 @@ export default function DeliveryPage() {
 
       if (!response.ok) throw new Error(result.message || 'Erro ao enviar o pedido.');
 
-      setMessage({ type: 'success', text: `🎯 ${result.message} Código do pedido: ${result.orderId}` });
-      // Limpa formulário e carrinho após o sucesso
+      // Lê as propriedades exatas retornadas por NextResponse.json no seu route.js de pedidos
+      setMessage({ 
+        type: 'success', 
+        text: `🎯 ${result.message} Código do pedido no banco: ${result.orderId}` 
+      });
+      
       setClientData({ name: '', phone: '', address: '' });
       setCartItems([]);
-
     } catch (err) {
       setMessage({ type: 'error', text: err.message });
     } finally {
@@ -93,7 +92,7 @@ export default function DeliveryPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           
-          {/* LADO ESQUERDO: SACOLA DE COMPRAS */}
+          {/* SEU CARRINHO */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-zinc-100 space-y-6">
             <h2 className="text-xl font-bold text-zinc-900 border-b border-zinc-100 pb-3">Seu Carrinho</h2>
             
@@ -108,7 +107,6 @@ export default function DeliveryPage() {
                       <p className="text-sm text-zinc-500 mt-0.5">{formatPrice(item.price)}</p>
                     </div>
                     
-                    {/* Controles de Quantidade */}
                     <div className="flex items-center gap-3 bg-white border border-zinc-200 rounded-lg p-1 shadow-sm">
                       <button 
                         type="button"
@@ -137,7 +135,7 @@ export default function DeliveryPage() {
             )}
           </div>
 
-          {/* LADO DIREITO: FORMULÁRIO DE DADOS E ENTREGA */}
+          {/* INFORMAÇÕES DE ENTREGA */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-zinc-100">
             <h2 className="text-xl font-bold text-zinc-900 border-b border-zinc-100 pb-3 mb-6">Informações de Entrega</h2>
             
